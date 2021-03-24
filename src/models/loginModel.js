@@ -31,11 +31,11 @@ class Login {
     this.cleanUp()
 
     // Email Validation
-    if (!validator.isEmail(this.body.email)) this.errors.push('Please, enter a valid email.')
+    if (!validator.isEmail(this.body.email)) this.errors.push('• Please, enter a valid email.')
 
     // Password Validation
-    if (this.body.password.length < 5) this.errors.push('Your password must be at least 5 characters.')
-    if (this.body.password.length >= 50) this.errors.push('Your password must be no longer than 50 characters.')
+    if (this.body.password.length < 5) this.errors.push('• Your password must be at least 5 characters.')
+    if (this.body.password.length >= 50) this.errors.push('• Your password must be no longer than 50 characters.')
   }
 
   cleanUp () {

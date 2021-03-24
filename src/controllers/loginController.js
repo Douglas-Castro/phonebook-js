@@ -11,11 +11,10 @@ exports.register = async function (req, res) {
   if (login.errors.length > 0) {
     req.flash('errors', login.errors)
     req.session.save(function () {
-      return res.redirect('back')
+      res.redirect('/login')
     })
 
     return
   }
-
   res.send(login.errors)
 }
