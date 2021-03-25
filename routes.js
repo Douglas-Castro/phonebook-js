@@ -4,15 +4,19 @@ const route = express.Router()
 const homeController = require('./src/controllers/homeController')
 const loginController = require('./src/controllers/loginController')
 const contactController = require('./src/controllers/contactController')
+const registerController = require('./src/controllers/registerController')
 
 const { loginRequired } = require('./src/middlewares/middleware')
 
 // Home route
 route.get('/', homeController.index)
 
+// Register routes
+route.get('/register', registerController.index)
+route.post('/register/signup', registerController.register)
+
 // Login routes
 route.get('/login', loginController.index)
-route.post('/login/register', loginController.register)
 route.post('/login/login', loginController.login)
 route.get('/login/logout', loginController.logout)
 
