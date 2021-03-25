@@ -15,13 +15,13 @@
         <input type="hidden" name="_csrf" value=<%= csrfToken %>>
 
         <div class="form-group my-4">
-          <input type="text" class="form-control" placeholder="Full Name" name="name">
+          <input value="<%= contact.name %>" type="text" class="form-control" placeholder="Full Name" name="name">
         </div>
         <div class="form-group my-4">
-          <input type="email" class="form-control" placeholder="Email" name="email">
+          <input value="<%= contact.email %>" type="email" class="form-control" placeholder="Email" name="email">
         </div>
         <div class="form-group my-4">
-          <input type="text" class="form-control" placeholder="Phone Number" name="phone_number">
+          <input value="<%= contact.phone_number %>" type="text" class="form-control" placeholder="Phone Number" name="phone_number">
         </div>
         <div class="col text-center">
           <button type="submit" class="btn btn-primary ">Save</button>
