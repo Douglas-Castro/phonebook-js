@@ -5,31 +5,6 @@ exports.index = (req, res) => {
   res.render('login')
 }
 
-exports.register = async function (req, res) {
-  try {
-    const user = new User(req.body)
-    await user.register()
-
-    if (user.errors.length > 0) {
-      req.flash('errors', user.errors)
-      req.session.save(function () {
-        return res.redirect('/login')
-      })
-
-      return
-    }
-
-    req.flash('success', 'Your account was created.')
-    req.session.save(function () {
-      return res.redirect('/login')
-    })
-  } catch (e) {
-    console.log(e)
-
-    return res.render('404')
-  }
-}
-
 exports.login = async function (req, res) {
   try {
     const user = new User(req.body)
