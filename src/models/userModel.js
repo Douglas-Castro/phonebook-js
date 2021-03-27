@@ -17,39 +17,51 @@ class User {
   }
 
   async login () {
-    if (this.errors.length > 0) return
+    try {
+      if (this.errors.length > 0) return
 
-    this.user = await UserModel.findOne({ email: this.body.email })
+      this.user = await UserModel.findOne({ email: this.body.email })
 
-    if (!this.user) {
-      this.errors.push('• User doesn\'t.')
+      if (!this.user) {
+        this.errors.push('• User doesn\'t.')
 
-      return
-    }
+        return
+      }
 
-    if (!bcryptjs.compareSync(this.body.password, this.user.password)) {
-      this.errors.push('• Incorrect password.')
-      this.user = null
+      if (!bcryptjs.compareSync(this.body.password, this.user.password)) {
+        this.errors.push('• Incorrect password.')
+        this.user = null
+      }
+    } catch (e) {
+      console.log(e)
     }
   }
 
   async register () {
-    this.validate()
-    if (this.errors.length > 0) return
+    try {
+      this.validate()
+      if (this.errors.length > 0) return
 
-    await this.userExists()
+      await this.userExists()
 
-    if (this.errors.length > 0) return
+      if (this.errors.length > 0) return
 
-    const salt = bcryptjs.genSaltSync()
-    this.body.password = bcryptjs.hashSync(this.body.password, salt)
+      const salt = bcryptjs.genSaltSync()
+      this.body.password = bcryptjs.hashSync(this.body.password, salt)
 
-    this.user = await UserModel.create(this.body)
+      this.user = await UserModel.create(this.body)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   async userExists () {
-    this.user = await UserModel.findOne({ email: this.body.email })
-    if (this.user) this.errors.push('• User already exists.')
+    try {
+      this.user = await UserModel.findOne({ email: this.body.email })
+      if (this.user) this.errors.push('• User already exists.')
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   validate () {
