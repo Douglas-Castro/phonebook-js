@@ -64,7 +64,9 @@ class Contact {
       this.validate()
       if (this.errors.length > 0) return
 
-      this.contact = await ContactModel.findOneAndUpdate(id, this.body, { new: true })
+      this.contact = await ContactModel.findByIdAndUpdate(id, this.body, { new: true })
+
+      return
     } catch (e) {
       console.log(e)
     }
