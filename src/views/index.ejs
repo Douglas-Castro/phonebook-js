@@ -7,21 +7,28 @@
 
     <div class="col-lg-8 my-3">
       <h1 class="text-center">PHONEBOOK</h1>
-      <p class="text-center lead">
-        Your contacts</p>
 
-      <%- include('includes/messages') %>
+      <% if (contacts.length > 0) { %>
+        <p class="text-center lead">Your contacts</p>
 
-      <div class="responsive-table">
-        <table class="table my-2">
-          <tr>
-            <td>Douglas</td>
-            <td>Castro</td>
-            <td>(xx) 9 xxxx-xxxx</td>
-            <td>douglas@email.com</td>
-          </tr>
-        </table>
-      </div>
+        <%- include('includes/messages') %>
+        
+        <div class="responsive-table">
+          <table class="table my-2">
+            <% contacts.forEach(contact => { %>
+              <tr>
+                <td><%= contact.name %></td>
+                <td><%= contact.phone_number %></td>
+                <td><%= contact.email %></td>
+                <td><a href="/contact/<%= contact.id %>">Edit</a></td>
+                <td><a class="text-danger" href="/contact/delete/<%= contact.id %>">Delete</a></td>
+              </tr>
+            <% }) %>
+          </table>
+        </div>
+      <% } else { %>
+        <p class="text-center lead">There are no contacts in your phonebook.</p>
+      <% } %>
     </div>
 
     <div class="col-lg-2"></div>
