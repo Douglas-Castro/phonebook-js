@@ -42,22 +42,18 @@ exports.contact = async function (req, res) {
 
 exports.edit = async function (req, res) {
   try {
-    if (!req.params.id) return res.render('404')
-
-    let contact = new Contact()
-    contact = await contact.edit(req.params.id)
-
-    console.log('caraaai' + contact)
+    const contact = new Contact(req.body)
+    await contact.edit(req.params.id)
 
     if (contact.errors.length > 0) {
       req.flash('errors', contact.errors)
-      req.session.save(() => res.redirect(`/contact/${contact.contact._id}`))
+      req.session.save(() => res.redirect(`/contact/${req.params.id}`))
 
       return
     }
 
     req.flash('success', 'The contact edit has been saved.')
-    req.session.save(() => res.redirect(`/contact/${contact.contact._id}`))
+    req.session.save(() => res.redirect(`/contact/${req.params.id}`))
   } catch (e) {
     console.log(e)
     res.render('404')
