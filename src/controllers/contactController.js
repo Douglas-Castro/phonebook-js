@@ -31,6 +31,8 @@ exports.register = async function (req, res) {
 
 exports.contact = async function (req, res) {
   try {
+    if (!req.params.id) return res.render('404')
+
     let contact = new Contact()
     contact = await contact.searchById(req.params.id)
 
@@ -57,5 +59,23 @@ exports.edit = async function (req, res) {
   } catch (e) {
     console.log(e)
     res.render('404')
+  }
+}
+
+exports.delete = async function (req, res) {
+  try {
+    if (!req.params.id) return res.render('404')
+
+    let contact = new Contact()
+    contact = await contact.delete(req.params.id)
+
+    if (!contact) return res.render('404')
+
+    req.flash('success', 'Contact was deleted.')
+    req.session.save(() => res.redirect('back'))
+
+    return
+  } catch (e) {
+    console.log(e)
   }
 }
