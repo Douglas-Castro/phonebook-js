@@ -61,6 +61,8 @@ class Contact {
 
   async edit (id) {
     try {
+      if (typeof id !== 'string') return
+
       this.validate()
       if (this.errors.length > 0) return
 
@@ -70,6 +72,23 @@ class Contact {
     } catch (e) {
       console.log(e)
     }
+  }
+
+  async searchContacts () {
+    try {
+      const contacts = await ContactModel.find().sort({ name: 1 })
+      return contacts
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  async delete (id) {
+    if (typeof id !== 'string') return
+
+    const contact = await ContactModel.findOneAndDelete(id)
+
+    return contact
   }
 }
 
