@@ -23,7 +23,7 @@ class User {
       this.user = await UserModel.findOne({ email: this.body.email })
 
       if (!this.user) {
-        this.errors.push('• User doesn\'t.')
+        this.errors.push('• User doesn\'t exist.')
 
         return
       }
