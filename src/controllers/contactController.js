@@ -66,8 +66,8 @@ exports.delete = async function (req, res) {
   try {
     if (!req.params.id) return res.render('404')
 
-    let contact = new Contact()
-    contact = await contact.delete(req.params.id)
+    const contact = new Contact()
+    await contact.delete(req.params.id)
 
     if (!contact) return res.render('404')
 
